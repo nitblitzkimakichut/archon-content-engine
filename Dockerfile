@@ -18,12 +18,8 @@ RUN mkdir -p /app/agents /app/data /app/backups && \
 # Create __init__.py in the agents directory
 RUN echo "# Agents package" > /app/agents/__init__.py
 
-# Copy the agent files first
-COPY agents/*.py /app/agents/
-
-# Copy the rest of the application code
-COPY *.py /app/
-COPY start.sh /app/
+# Copy the entire repository content
+COPY . /app/
 
 # Set environment variables
 ENV PYTHONPATH=/app
