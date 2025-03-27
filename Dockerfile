@@ -11,12 +11,15 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Create necessary directories
+RUN mkdir -p /app/agents /app/data /app/backups && \
+    chmod -R 755 /app/agents /app/data /app/backups
+
+# Make sure agents directory is a package
+RUN touch /app/agents/__init__.py
+
 # Copy application code
 COPY . .
-
-# Create directories for data
-RUN mkdir -p /app/data /app/backups && \
-    chmod -R 755 /app/data /app/backups
 
 # Set environment variables
 ENV PYTHONPATH=/app
@@ -26,4 +29,4 @@ ENV PYTHONUNBUFFERED=1
 RUN chmod +x /app/start.sh
 
 # Command to run the application
-CMD ["/app/start.sh"]
+CMD ["gunicorn", "main:app", "--workers", "2", "--worker-class", "uvicorn.workers.UvicornWorker", "--bind", "0.0.0.0:8000", "--timeout", "120"]
