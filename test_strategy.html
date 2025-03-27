@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Strategy API Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        .api-url {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .nav {
+            margin-bottom: 20px;
+        }
+        .nav a {
+            margin-right: 15px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Content Strategy API Tester</h1>
+    
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="test_strategy.html">Strategy Agent</a>
+        <a href="test_scriptwriter.html">Script Writer Agent</a>
+        <a href="test_visual_planner.html">Visual Planner Agent</a>
+    </div>
+    
+    <div class="api-url">
+        API URL: <span id="apiUrl">https://archon-content-engine-production.up.railway.app</span>
+        <button onclick="updateApiUrl()">Update URL</button>
+    </div>
+    
+    <h2>Test Strategy Analysis</h2>
+    <p>This will send a POST request to the /strategy/analyze endpoint with sample data.</p>
+    
+    <textarea id="requestBody">{
+  "videos": [
+    {
+      "title": "Top 10 Hidden Features in iOS 18",
+      "description": "Exploring the best hidden features in the new iOS update that most people don't know about!",
+      "views": 250000,
+      "publishedAt": "2024-02-15",
+      "channel": "Tech Insights"
+    }
+  ],
+  "analysis_type": "full"
+}</textarea>
+    
+    <button onclick="testStrategyAPI()">Test API</button>
+    
+    <h3>Response:</h3>
+    <pre id="responseOutput">Results will appear here...</pre>
+    
+    <script>
+        function updateApiUrl() {
+            const newUrl = prompt("Enter API URL:", document.getElementById("apiUrl").textContent);
+            if (newUrl) {
+                document.getElementById("apiUrl").textContent = newUrl;
+                // Save to local storage for persistence across pages
+                localStorage.setItem('apiUrl', newUrl);
+            }
+        }
+        
+        // Load API URL from local storage if available
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUrl = localStorage.getItem('apiUrl');
+            if (savedUrl) {
+                document.getElementById("apiUrl").textContent = savedUrl;
+            }
+        });
+        
+        async function testStrategyAPI() {
+            const apiUrl = document.getElementById("apiUrl").textContent;
+            const requestBody = document.getElementById("requestBody").value;
+            
+            try {
+                const response = await fetch(`${apiUrl}/strategy/analyze`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: requestBody
+                });
+                
+                const data = await response.json();
+                document.getElementById("responseOutput").textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById("responseOutput").textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html> 

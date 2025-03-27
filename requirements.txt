@@ -24,3 +24,9 @@ python-dotenv==1.0.0
 
 # Rate limiting
 slowapi==0.1.6
+
+# JSON processing
+simplejson==3.19.2
+
+# Error tracking
+sentry-sdk==1.32.0

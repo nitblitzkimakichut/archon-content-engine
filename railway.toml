@@ -2,18 +2,18 @@
 name = "archon-content-agents"
 
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+builder = "nixpacks"
+buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-numReplicas = 1
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
-healthcheckPath = "/health"
-healthcheckTimeout = 180
+startCommand = "gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 180"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on-failure"
+restartPolicyMaxRetries = 10
 
 [env]
-PORT = "8000"
+PORT = "8080"
 PYTHONPATH = "/app"
 PYTHONUNBUFFERED = "1"
 MEMORY_STORAGE_TYPE = "sqlite"

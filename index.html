@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Creation API Testing Suite</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
+        }
+        .card h2 {
+            margin-top: 0;
+            color: #4CAF50;
+        }
+        .card p {
+            margin-bottom: 20px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+        .api-url {
+            margin-bottom: 20px;
+            font-weight: bold;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Content Creation API Testing Suite</h1>
+    
+    <div class="api-url">
+        Current API URL: <span id="apiUrl">https://archon-content-engine-production.up.railway.app</span>
+        <button onclick="updateApiUrl()">Update URL</button>
+    </div>
+    
+    <div class="card">
+        <h2>Content Strategy Agent</h2>
+        <p>Analyze viral videos and extract content strategy insights including hook patterns, format trends, engagement tactics, and content themes.</p>
+        <a href="test_strategy.html" class="btn">Test Strategy Agent</a>
+    </div>
+    
+    <div class="card">
+        <h2>Script Writer Agent</h2>
+        <p>Generate video scripts based on topics, tone, duration, and key points you want to cover in your content.</p>
+        <a href="test_scriptwriter.html" class="btn">Test Script Writer Agent</a>
+    </div>
+    
+    <div class="card">
+        <h2>Visual Content Planner Agent</h2>
+        <p>Create visual plans for your videos including shot sequences, transitions, color schemes, typography, and music suggestions.</p>
+        <a href="test_visual_planner.html" class="btn">Test Visual Planner Agent</a>
+    </div>
+    
+    <script>
+        function updateApiUrl() {
+            const newUrl = prompt("Enter API URL:", document.getElementById("apiUrl").textContent);
+            if (newUrl) {
+                document.getElementById("apiUrl").textContent = newUrl;
+                localStorage.setItem('apiUrl', newUrl);
+            }
+        }
+        
+        // Load API URL from local storage if available
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedUrl = localStorage.getItem('apiUrl');
+            if (savedUrl) {
+                document.getElementById("apiUrl").textContent = savedUrl;
+            }
+        });
+    </script>
+</body>
+</html> 
