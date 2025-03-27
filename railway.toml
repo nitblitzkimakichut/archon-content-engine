@@ -1,0 +1,18 @@
+[project]
+name = "archon-content-agents"
+
+[deploy]
+branch = "main"
+healthcheckPath = "/health"
+healthcheckTimeout = 100
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+[env]
+MEMORY_STORAGE_TYPE = "sqlite"
+MEMORY_RETENTION_DAYS = "30"
+MEMORY_BACKUP_ENABLED = "true"
+MEMORY_BACKUP_INTERVAL = "86400"
+PYTHONUNBUFFERED = "1"
+PYTHONPATH = "/app"
+# Set OPENROUTER_API_KEY in Railway's dashboard environment variables

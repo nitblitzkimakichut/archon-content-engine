@@ -1,0 +1,61 @@
+# FastAPI and ASGI server
+fastapi==0.104.1
+uvicorn==0.24.0
+python-multipart==0.0.6
+
+# Pydantic for data validation
+pydantic==2.4.2
+pydantic-settings==2.0.3
+
+# OpenAI for AI processing
+openrouter-client==0.3.0  # or the latest version
+
+# HTTP client for service communication
+requests==2.31.0
+httpx==0.25.1
+
+# Logging and monitoring
+structlog==23.2.0
+python-json-logger==2.0.7
+
+# Environment variables
+python-dotenv==1.0.0
+
+# Database (if needed for caching)
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9  # Use pre-built wheel
+aiosqlite==0.19.0
+
+# Caching
+redis==5.0.1
+aioredis==2.0.1
+
+# Testing
+pytest==7.4.3
+pytest-asyncio==0.21.1
+
+# Development tools
+black==23.11.0
+isort==5.12.0
+flake8==6.1.0
+mypy==1.6.1
+
+# CORS support
+python-multipart==0.0.6
+
+# Rate limiting
+slowapi==0.1.6
+
+# Background tasks
+celery==5.3.3
+redis==5.0.1
+
+# Logging and monitoring
+sentry-sdk==1.38.0
+prometheus-fastapi-instrumentator==5.10.0
+
+# Optional: For local development
+uvicorn[standard]==0.24.0
+
+# Railway specific
+gunicorn==21.2.0
