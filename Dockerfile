@@ -22,9 +22,8 @@ RUN mkdir -p /app/data /app/backups && \
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
 
-# Expose the port
-EXPOSE 8000
+# Make start script executable
+RUN chmod +x /app/start.sh
 
 # Command to run the application
-CMD PORT=$(python -c 'import os; print(os.environ.get("PORT", "8000"))') && \
-    gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind "0.0.0.0:$PORT" --timeout 120
+CMD ["/app/start.sh"]

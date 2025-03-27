@@ -13,6 +13,7 @@ healthcheckPath = "/health"
 healthcheckTimeout = 180
 
 [env]
+PORT = "8000"
 PYTHONPATH = "/app"
 PYTHONUNBUFFERED = "1"
 MEMORY_STORAGE_TYPE = "sqlite"
