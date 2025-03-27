@@ -21,10 +21,10 @@ RUN mkdir -p /app/data /app/backups && \
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV PYTHONUNBUFFERED=1
-ENV PORT=8000
 
 # Expose the port
 EXPOSE 8000
 
 # Command to run the application
-CMD gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:${PORT:-8000} --timeout 120
+CMD PORT=$(python -c 'import os; print(os.environ.get("PORT", "8000"))') && \
+    gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind "0.0.0.0:$PORT" --timeout 120
