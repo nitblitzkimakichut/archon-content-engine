@@ -6,9 +6,10 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 
 [deploy]
-startCommand = "gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT --timeout 120"
+numReplicas = 1
+startCommand = "gunicorn main:app --workers 2 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:${PORT:-8000} --timeout 120"
 healthcheckPath = "/health"
-healthcheckTimeout = 300
+healthcheckTimeout = 180
 restartPolicyType = "on_failure"
 restartPolicyMaxRetries = 3
 
@@ -20,3 +21,4 @@ MEMORY_BACKUP_INTERVAL = "86400"
 PYTHONUNBUFFERED = "1"
 PYTHONPATH = "/app"
 # Set OPENROUTER_API_KEY in Railway's dashboard environment variables
+PORT = "8000"

@@ -43,21 +43,13 @@ async def root():
 @app.get("/health")
 async def health_check():
     """Health check endpoint for Railway deployment"""
-    try:
-        # Basic application health check
-        return {
-            "status": "healthy",
-            "timestamp": datetime.utcnow().isoformat(),
-            "environment": "production" if os.getenv("RAILWAY_ENVIRONMENT") else "development",
-            "version": "1.0.0"
-        }
-    except Exception as e:
-        return {
-            "status": "unhealthy",
-            "timestamp": datetime.utcnow().isoformat(),
-            "error": str(e)
-        }
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "version": "1.0.0"
+    }
 
 if __name__ == "__main__":
+    port = int(os.getenv("PORT", "8000"))
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8000"))) 
+    uvicorn.run(app, host="0.0.0.0", port=port) 
